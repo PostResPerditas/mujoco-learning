@@ -2,7 +2,7 @@
 
 function installEigenpy () {
   # install eigenpy
-  uv pip install numpy
+  pip install numpy
   if [ -d "eigenpy" ]; then
       rm -rf eigenpy
   fi
@@ -11,7 +11,8 @@ function installEigenpy () {
   mkdir build && cd build
   cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX="$VIRTUAL_ENV" \
+    -DCMAKE_INSTALL_PREFIX="$CONDA_PREFIX" \
+    -DBoost_PYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libboost_python38 \
     -DPYTHON_EXECUTABLE=$(which python)
 
   make -j8 

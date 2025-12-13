@@ -1,8 +1,14 @@
 import PyKDL
 from kdl_parser.urdf import treeFromFile, treeFromUrdfModel
-from urdf_parser_py.urdf import URDF
+
+import sys
+import os
+
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(ROOT_DIR)
+
+from scripts.kdl_parser.kdl_parser.urdf_parser_py.urdf import URDF
 import numpy as np
-import os        
 
 class Kinematics:
     def __init__(self, ee_frame):
