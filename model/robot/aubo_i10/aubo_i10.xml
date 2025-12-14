@@ -1,0 +1,89 @@
+<mujoco model="aubo_i10">
+  <compiler angle="radian" meshdir="assets" autolimits="true" balanceinertia="true"/>
+
+  <option integrator="implicitfast"/>
+
+  <default>
+    <default class="aubo_arm">
+      <material specular="0.5" shininess="0.25"/>
+      <joint armature="0.1" damping="1" axis="0 0 1" range="-2.8973 2.8973"/>
+      <general dyntype="none" biastype="affine" ctrlrange="-2.8973 2.8973" forcerange="-87 87"/>
+      </default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0" density="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" density="2700"/>
+    </default>
+  </default>
+
+  <asset>
+    <mesh name="link0" file="link0.STL"/>
+    <mesh name="link1" file="link1.STL"/>
+    <mesh name="link2" file="link2.STL"/>
+    <mesh name="link3" file="link3.STL"/>
+    <mesh name="link4" file="link4.STL"/>
+    <mesh name="link5" file="link5.STL"/>
+    <mesh name="link6" file="link6.STL"/>
+  </asset>
+
+  <worldbody>
+    <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="link0"/>
+    <geom type="mesh" rgba="1 1 1 1" mesh="link0"/>
+    <body name="shoulder_Link" pos="0 0 0.1632" quat="0 0 0 1">
+      <inertial pos="-4e-06 0.005112 -0.026275" quat="0.997565 -0.0697219 -1.82331e-05 0.00151628" mass="1.1801" diaginertia="0.043326 0.0424812 0.0296538"/>
+      <joint name="shoulder_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-267 267"/>
+      <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.89804 0.91765 0.92941 1" mesh="link1"/>
+      <geom type="mesh" rgba="0.89804 0.91765 0.92941 1" mesh="link1"/>
+      <body name="upperArm_Link" pos="0 0.2013 0" quat="0.5 -0.5 -0.5 -0.5">
+        <inertial pos="0.231117 -1.3e-05 -0.022852" quat="0.505617 0.49432 0.493921 0.506005" mass="1.0964" diaginertia="1.52462 1.50645 0.0641157"/>
+        <joint name="upperArm_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-267 267"/>
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.89804 0.91765 0.92941 1" mesh="link2"/>
+        <geom type="mesh" rgba="0.89804 0.91765 0.92941 1" mesh="link2"/>
+        <body name="foreArm_Link" pos="0.647 0 0" quat="0 -1 0 0">
+          <inertial pos="0.41956 -1.9e-05 0.118053" quat="0.494817 0.505196 0.503176 0.496737" mass="1.44809" diaginertia="0.246194 0.244857 0.00673165"/>
+          <joint name="foreArm_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-133 133"/>
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="link3"/>
+          <geom type="mesh" rgba="1 1 1 1" mesh="link3"/>
+          <body name="wrist1_Link" pos="0.6005 0 0" quat="0 0.707107 0.707107 0">
+            <inertial pos="4.7e-05 0.009773 -0.005726" quat="0.634287 0.773094 0.00115623 0.00203894" mass="1.79166" diaginertia="0.00245702 0.0022075 0.00156548"/>
+            <joint name="wrist1_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-49 49"/>
+            <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="link4"/>
+            <geom type="mesh" rgba="1 1 1 1" mesh="link4"/>
+            <body name="wrist2_Link" pos="0 0.1025 0" quat="0.707107 -0.707107 0 0">
+              <inertial pos="-3.8e-05 -0.011278 -0.001539" quat="0.725716 0.68759 0.0175555 -0.0157544" mass="1.62802" diaginertia="0.00195105 0.00193322 0.00115172"/>
+              <joint name="wrist2_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-13.5 13.5"/>
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="link5"/>
+              <geom type="mesh" rgba="1 1 1 1" mesh="link5"/>
+              <body name="wrist3_Link" pos="0 -0.094 0" quat="0.707107 0.707107 0 0">
+                <inertial pos="2.2e-05 0.0006 -0.017081" quat="0.503459 0.496517 -0.496517 0.503459" mass="0.1978" diaginertia="0.000184014 0.000118 0.000111986"/>
+                <joint name="wrist3_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-13.5 13.5"/>
+                <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="link6"/>
+                <geom type="mesh" rgba="1 1 1 1" mesh="link6"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <general class="aubo_arm" name="shoulder_joint" joint="shoulder_joint" gainprm="4500" biasprm="0 -4500 -450"/>
+    <!-- <general class="aubo_arm" name="upperArm_joint" joint="upperArm_joint" gainprm="4500" biasprm="0 -4500 -450"/> -->
+    <general class="aubo_arm" name="upperArm_joint" joint="upperArm_joint" gainprm="5000" biasprm="0 -5000 -800"/>
+
+    <general class="aubo_arm" name="foreArm_joint" joint="foreArm_joint" gainprm="4500" biasprm="0 -4500 -450"/>
+    <general class="aubo_arm" name="wrist1_joint" joint="wrist1_joint" gainprm="4500" biasprm="0 -4500 -450"/>
+    <general class="aubo_arm" name="wrist2_joint" joint="wrist2_joint" gainprm="4500" biasprm="0 -4500 -450"/>
+    <general class="aubo_arm" name="wrist3_joint" joint="wrist3_joint" gainprm="4500" biasprm="0 -4500 -450"/>
+
+    <!-- <general class="aubo_arm" name="actuator1" joint="shoulder_joint"/>
+    <general class="aubo_arm" name="actuator2" joint="upperArm_joint"/>
+    <general class="aubo_arm" name="actuator3" joint="foreArm_joint"/>
+    <general class="aubo_arm" name="actuator4" joint="wrist1_joint"/>
+    <general class="aubo_arm" name="actuator5" joint="wrist2_joint"/>
+    <general class="aubo_arm" name="actuator6" joint="wrist3_joint"/> -->
+  </actuator>
+
+</mujoco>
