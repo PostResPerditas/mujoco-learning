@@ -7,3 +7,6 @@ eigenpy
 casadi
 kdl_parser
 pinocchio_install
+mujoco_usdpkg/
+scripts/eigenpy/
+train_log/

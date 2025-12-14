@@ -430,17 +430,17 @@ def test_ppo(
 
 if __name__ == "__main__":
     # -------------------------- 配置选项 --------------------------
-    TRAIN_MODE = True    # True=训练，False=测试
+    TRAIN_MODE = False    # True=训练，False=测试
     NUM_OBSTACLES = 2    # 障碍物数量（训练和测试需一致）
-    MODEL_PATH = "panda_ppo_obstacle_1obs"  # 模型保存/加载路径
+    MODEL_PATH = "./train_log/panda_ppo_obstacle_1obs"  # 模型保存/加载路径
     
     # -------------------------- 执行逻辑 --------------------------
     if TRAIN_MODE:
         # 1. 执行训练（可视化关闭，多进程高效运行）
         train_ppo(
             num_obstacles=NUM_OBSTACLES,
-            n_envs=512,                
-            total_timesteps=800_000_000,
+            n_envs=8,
+            total_timesteps=800_000,
             model_save_path=MODEL_PATH,
             visualize = False
         )

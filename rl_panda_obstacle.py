@@ -1,7 +1,9 @@
 import numpy as np
 import mujoco
-import gym
-from gym import spaces
+# import gym
+# from gym import spaces
+import gymnasium as gym
+from gymnasium import spaces
 from stable_baselines3 import PPO
 from stable_baselines3.common.env_util import make_vec_env
 import torch.nn as nn
@@ -16,6 +18,7 @@ warnings.filterwarnings("ignore", category=UserWarning, module="stable_baselines
 class PandaObstacleEnv(gym.Env):
     def __init__(self, num_obstacles=1):
         super(PandaObstacleEnv, self).__init__()
+        
         # 1. 加载MuJoCo机械臂模型（需确保scene.xml路径正确）
         self.model = mujoco.MjModel.from_xml_path('./model/franka_emika_panda/scene.xml')
         self.data = mujoco.MjData(self.model)
@@ -280,7 +283,7 @@ if __name__ == "__main__":
     # 1. 创建向量环境（n_envs=1，单环境训练）
     env = make_vec_env(
         env_id=lambda: PandaObstacleEnv(**ENV_KWARGS),
-        n_envs=1,
+        n_envs=6,
         seed=42  # 固定种子确保可复现
     )
     
@@ -314,7 +317,7 @@ if __name__ == "__main__":
     )
     
     # 5. 保存训练好的模型
-    MODEL_SAVE_PATH = "panda_ppo_obstacle_avoidance"
+    MODEL_SAVE_PATH = "./train_log/panda_ppo_obstacle_avoidance"
     model.save(MODEL_SAVE_PATH)
     print(f"模型已保存至: {MODEL_SAVE_PATH}")
     

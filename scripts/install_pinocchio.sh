@@ -31,7 +31,7 @@ function installCasADi(){
   sudo apt install swig liblapack-dev libblas-dev -y
   cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DPYTHON_EXECUTABLE=$(which python) \
-      -DCMAKE_INSTALL_PREFIX=$VIRTUAL_ENV \
+      -DCMAKE_INSTALL_PREFIX="$CONDA_PREFIX" \
       -DWITH_IPOPT=ON \
       -DWITH_PYTHON=ON
 
@@ -53,16 +53,27 @@ function installPinocchio(){
   mkdir build && cd build
   # cd build
 
+  # cmake .. \
+  #   -DCMAKE_BUILD_TYPE=Release \
+  #   -DCMAKE_CXX_FLAGS="-I${VIRTUAL_ENV}/include -L${VIRTUAL_ENV}/lib" \
+  #   -DCMAKE_INSTALL_PREFIX="$VIRTUAL_ENV" \
+  #   -DBUILD_WITH_CASADI_SUPPORT=ON \
+  #   -DCMAKE_PREFIX_PATH="$VIRTUAL_ENV" \
+  #   -DCMAKE_INCLUDE_PATH="${VIRTUAL_ENV}/include" \
+  #   -Dcasadi_DIR="${VIRTUAL_ENV}/lib/cmake/casadi" \
+  #   -DCMAKE_LIBRARY_PATH="${VIRTUAL_ENV}/lib"
   cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_CXX_FLAGS="-I${VIRTUAL_ENV}/include -L${VIRTUAL_ENV}/lib" \
-    -DCMAKE_INSTALL_PREFIX="$VIRTUAL_ENV" \
+    -DCMAKE_CXX_FLAGS="-I${CONDA_PREFIX}/include -L${CONDA_PREFIX}/lib" \
+    -DCMAKE_INSTALL_PREFIX="$CONDA_PREFIX" \
     -DBUILD_WITH_CASADI_SUPPORT=ON \
-    -DCMAKE_PREFIX_PATH="$VIRTUAL_ENV" \
-    -DCMAKE_INCLUDE_PATH="${VIRTUAL_ENV}/include" \
-    -Dcasadi_DIR="${VIRTUAL_ENV}/lib/cmake/casadi" \
-    -DCMAKE_LIBRARY_PATH="${VIRTUAL_ENV}/lib"
-
+    -DCMAKE_PREFIX_PATH="$CONDA_PREFIX" \
+    -DCMAKE_INCLUDE_PATH="${CONDA_PREFIX}/include" \
+    -Dcasadi_DIR="${CONDA_PREFIX}/lib/cmake/casadi" \
+    -DBoost_PYTHON_LIBRARY=/mnt/ssd/anaconda3/envs/mujo_play/lib/libboost_python312 \
+    -DCMAKE_LIBRARY_PATH="${CONDA_PREFIX}/lib" \
+    -DBoost_PYTHON_LIBRARY=/mnt/ssd/anaconda3/envs/mujo_play/lib/libboost_python312.so \
+    -DBoost_DEBUG=ON
   make -j$(nproc)
   make install
 }

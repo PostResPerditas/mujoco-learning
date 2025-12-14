@@ -9,7 +9,7 @@ import pinocchio
 from numpy.linalg import norm, solve
 
 def inverse_kinematics(current_q, target_dir, target_pos):
-    urdf_filename = './model/franka_panda_description/robots/panda_arm.urdf'
+    urdf_filename = './model/franka_panda_urdf/robots/panda_arm.urdf'
     # 从 URDF 文件构建机器人模型
     model = pinocchio.buildModelFromUrdf(urdf_filename)
     # 为模型创建数据对象，用于存储计算过程中的中间结果

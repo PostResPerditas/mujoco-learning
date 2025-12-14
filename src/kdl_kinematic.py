@@ -7,12 +7,14 @@ import os
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(ROOT_DIR)
 
-from scripts.kdl_parser.kdl_parser.urdf_parser_py.urdf import URDF
+# from scripts.kdl_parser.kdl_parser.urdf_parser_py.urdf import URDF
 import numpy as np
 
 class Kinematics:
     def __init__(self, ee_frame):
         self.frame_name = ee_frame
+        # NOTE
+        self.chain = PyKDL.Chain()
 
     def buildFromURDF(self, urdf_file, base_link):
         if not os.path.exists(urdf_file):
