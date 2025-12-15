@@ -1,0 +1,69 @@
+<mujoco model="single object">
+  <option timestep="0.005"/>
+  <size memory="100M"/>
+
+  <include file="linker_hand.xml"/>
+
+  <default>
+    <geom solimp="0.8 0.9 0.001" solref="0.005 0.8" friction="0.5 0.1 0.01"/>
+    <!-- 为桌面定义默认类别 -->
+    <default class="table">
+      <geom type="box" material="table_material" contype="1" conaffinity="1" friction="1 0.1 0.01"/>
+    </default>
+  </default>
+
+  <asset>
+    <!-- 原有的纹理和材质定义 -->
+    <texture type="skybox" builtin="gradient" width="512" height="512" rgb1=".4 .6 .8" rgb2="0 0 0"/>
+    <texture name="texgeom" type="cube" builtin="flat" mark="cross" width="128" height="128" rgb1="0.6 0.6 0.6" rgb2="0.6 0.6 0.6" markrgb="1 1 1"/>
+    <texture name="texplane" type="2d" builtin="checker" rgb1=".4 .4 .4" rgb2=".6 .6 .6" width="512" height="512"/>
+    
+    <!-- 材质定义 -->
+    <material name="MatPlane" reflectance="0.3" texture="texplane" texrepeat="1 1" texuniform="true" rgba=".7 .7 .7 1"/>
+    <material name="table_material" rgba="0.8 0.7 0.6 1" specular="0.3"/>
+    <material name="custom_object_material" texture="texgeom" texuniform="true" rgba="0.2 0.5 0.8 1"/>
+    
+    <!-- 关键步骤1：在asset部分定义您的STL网格 -->
+    <mesh name="my_object_mesh" file="objects/ycb/potted_meat_can.stl"/>
+  </asset>
+
+  <visual>
+    <quality shadowsize="4096" offsamples="8"/>
+    <map znear="0.1" force="0.05"/>
+  </visual>
+
+  <statistic extent="4"/>
+
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    
+    <!-- 地面 -->
+    <geom name="floor" type="plane" size="3 3 .5" material="MatPlane" pos="0 0 -0.75"/>
+    
+    <!-- 新增：桌面定义 -->
+    <!-- 桌子的视觉和碰撞几何体 -->
+    <body name="table" pos="0 0 0">
+      <!-- 桌面的碰撞体 - 确保物体可以稳定放置 -->
+      <geom name="table_surface" class="table" type="box" size="0.515 0.5 0.01" pos="-0.195 1.13 0.2" 
+            mass="10" density="1000"/>
+    </body>
+
+    <!-- 修改后的物体：现在放置在桌面上 -->
+    <!-- 位置调整  -->
+    <body name="single_object" pos="-0.07223 1.087375 0.22">
+      <freejoint/> <!-- 此关节赋予物体6个运动自由度 -->
+      
+      <!-- 惯性属性（质量信息） -->
+      <inertial pos="0.045 0.025 0.0375" mass="0.5" diaginertia="0.001 0.001 0.001"/>
+      
+      <!-- 网格几何体 -->
+      <!-- <geom type="mesh" mesh="my_object_mesh" material="custom_object_material" 
+            contype="1" conaffinity="1" density="500"/> -->
+      <geom type="mesh" mesh="my_object_mesh" material="custom_object_material" 
+        contype="1" conaffinity="1" density="500"
+        solimp="0.9 0.95 0.001"
+        solref="0.02 1"/> 
+        
+    </body>
+  </worldbody>
+</mujoco>

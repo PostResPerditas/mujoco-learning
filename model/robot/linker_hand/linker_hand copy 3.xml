@@ -1,30 +1,25 @@
 <mujoco model="aubo_i10_linker">
   <compiler angle="radian" meshdir="assets" autolimits="true" balanceinertia="true"/>
 
-  <option integrator="implicitfast"/>
+  <option integrator="implicitfast" timestep="0.002"/>
 
   <default>
-    <default class="aubo_linker">
+    <default class="linker">
       <material specular="0.5" shininess="0.25"/>
-      <joint armature="0.1" damping="1" axis="0 0 1" range="-2.8973 2.8973"/>
-      <general dyntype="none" biastype="affine" ctrlrange="-2.8973 2.8973" forcerange="-87 87"/>
+      <joint armature="0.1" damping="1.5" axis="0 0 1" range="-2.8973 2.8973"/>
+      <general dyntype="none" biastype="affine" ctrlrange="-2.8973 2.8973" forcerange="-20 20"/>
+      <geom solimp="0.8 0.9 0.001" solref="0.005 0.8" friction="0.5 0.1 0.01"/>
       </default>
     <default class="visual">
       <geom group="2" type="mesh" contype="0" conaffinity="0" density="0"/>
     </default>
     <default class="collision">
-      <geom group="3" type="mesh" density="2700"/>
+      <geom group="3" type="mesh" density="2700" contype="1" conaffinity="1" margin="0.001"
+            solimp="0.8 0.9 0.001" solref="0.005 0.8"/>
     </default>
   </default>
 
   <asset>
-    <mesh name="link0" file="link0.STL"/>
-    <mesh name="link1" file="link1.STL"/>
-    <mesh name="link2" file="link2.STL"/>
-    <mesh name="link3" file="link3.STL"/>
-    <mesh name="link4" file="link4.STL"/>
-    <mesh name="link5" file="link5.STL"/>
-    <mesh name="link6" file="link6.STL"/>
     <mesh name="base_link" file="base_link.STL"/>
     <mesh name="thumb_link0" file="thumb_link0.STL"/>
     <mesh name="thumb_link1" file="thumb_link1.STL"/>
@@ -55,65 +50,51 @@
   </asset>
 
   <worldbody>
-    <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="link0"/>
-    <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="link0"/>
-    <body name="shoulder_Link" pos="0 0 0.1632" quat="0 0 0 1">
-      <inertial pos="-4e-06 0.005112 -0.026275" quat="0.997565 -0.0697219 -1.82331e-05 0.00151628" mass="1.1801" diaginertia="0.043326 0.0424812 0.0296538"/>
-      <joint name="shoulder_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-267 267"/>
-      <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.5 0.7 1 1" mesh="link1"/>
-      <geom type="mesh" rgba="0.5 0.7 1 1" mesh="link1"/>
-      <body name="upperArm_Link" pos="0 0.2013 0" quat="0.5 -0.5 -0.5 -0.5">
-        <inertial pos="0.231117 -1.3e-05 -0.022852" quat="0.505617 0.49432 0.493921 0.506005" mass="1.0964" diaginertia="1.52462 1.50645 0.0641157"/>
-        <joint name="upperArm_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-267 267"/>
-        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.72 0.35 0.16 1" mesh="link2"/>
-        <geom type="mesh" rgba="0.72 0.35 0.16 1" mesh="link2"/>
-        <body name="foreArm_Link" pos="0.647 0 0" quat="0 -1 0 0">
-          <inertial pos="0.41956 -1.9e-05 0.118053" quat="0.494817 0.505196 0.503176 0.496737" mass="1.44809" diaginertia="0.246194 0.244857 0.00673165"/>
-          <joint name="foreArm_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-133 133"/>
-          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.72 0.35 0.16 1" mesh="link3"/>
-          <geom type="mesh" rgba="0.72 0.35 0.16 1" mesh="link3"/>
-          <body name="wrist1_Link" pos="0.6005 0 0" quat="0 0.707107 0.707107 0">
-            <inertial pos="4.7e-05 0.009773 -0.005726" quat="0.634287 0.773094 0.00115623 0.00203894" mass="1.79166" diaginertia="0.00245702 0.0022075 0.00156548"/>
-            <joint name="wrist1_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-49 49"/>
-            <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.5 0.7 1 1" mesh="link4"/>
-            <geom type="mesh" rgba="0.5 0.7 1 1" mesh="link4"/>
-            <body name="wrist2_Link" pos="0 0.1025 0" quat="0.707107 -0.707107 0 0">
-              <inertial pos="-3.8e-05 -0.011278 -0.001539" quat="0.725716 0.68759 0.0175555 -0.0157544" mass="1.62802" diaginertia="0.00195105 0.00193322 0.00115172"/>
-              <joint name="wrist2_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-13.5 13.5"/>
-              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.72 0.35 0.16 1" mesh="link5"/>
-              <geom type="mesh" rgba="0.72 0.35 0.16 1" mesh="link5"/>
-              <body name="wrist3_Link" pos="0 -0.094 0" quat="0.707107 0.707107 0 0">
-                <inertial pos="-0.00379773 0.00168484 0.0317199" quat="0.999055 -0.010615 -0.0419272 -0.00431963" mass="0.31432" diaginertia="0.00159796 0.00150831 0.000291313"/>
-                <joint name="wrist3_joint" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-13.5 13.5"/>
-                <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.72 0.35 0.16 1" mesh="link6"/>
-                <geom type="mesh" rgba="0.72 0.35 0.16 1" mesh="link6"/>
-                <geom pos="0 0 0.03" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="base_link"/>
-                <geom pos="0 0 0.03" type="mesh" rgba="0.2 0.2 0.2 1" mesh="base_link"/>
-                <body name="thumb_link0" pos="-0.0025188 -0.0050821 0.082292">
+    <body name="virtual_link_x">
+      <inertial pos="0 0 0" mass="0.001" diaginertia="1e-06 1e-06 1e-06"/>
+      <joint name="virtual_joint_x" pos="0 0 0" axis="1 0 0" type="slide" range="-10 10" actuatorfrcrange="-300 300"/>
+      <body name="virtual_link_y">
+        <inertial pos="0 0 0" mass="0.001" diaginertia="1e-06 1e-06 1e-06"/>
+        <joint name="virtual_joint_y" pos="0 0 0" axis="0 1 0" type="slide" range="-10 10" actuatorfrcrange="-300 300"/>
+        <body name="virtual_link_z">
+          <inertial pos="0 0 0" mass="0.001" diaginertia="1e-06 1e-06 1e-06"/>
+          <joint name="virtual_joint_z" pos="0 0 0" axis="0 0 1" type="slide" range="-10 10" actuatorfrcrange="-300 300"/>
+          <body name="virtual_link_roll">
+            <inertial pos="0 0 0" mass="0.001" diaginertia="1e-06 1e-06 1e-06"/>
+            <joint name="virtual_joint_roll" pos="0 0 0" axis="1 0 0" range="-6.28318 6.28318" actuatorfrcrange="-100 100"/>
+            <body name="virtual_link_pitch">
+              <inertial pos="0 0 0" mass="0.001" diaginertia="1e-06 1e-06 1e-06"/>
+              <joint name="virtual_joint_pitch" pos="0 0 0" axis="0 1 0" range="-6.28318 6.28318" actuatorfrcrange="-100 100"/>
+              <body name="virtual_link_yaw">
+                <inertial pos="-0.0101945 0.00349641 0.083843" quat="0.998345 0.0240782 -0.0521737 -0.00228729" mass="0.11752" diaginertia="0.000208632 0.000125457 0.000108614"/>
+                <joint name="virtual_joint_yaw" pos="0 0 0" axis="0 0 1" range="-6.28318 6.28318" actuatorfrcrange="-100 100"/>
+                <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="base_link"/>
+                <geom class="collision" mesh="base_link"/>
+                <body name="thumb_link0" pos="-0.0025188 -0.0050821 0.052292">
                   <inertial pos="0.0127888 -0.0025056 0.0016311" quat="0.714728 0.653385 0.198173 -0.151588" mass="0.002748" diaginertia="3.03396e-07 2.76444e-07 9.59657e-08"/>
                   <joint name="thumb_joint0" pos="0 0 0" axis="-1 0 0" range="-0.297 0.683" actuatorfrcrange="-300 300"/>
                   <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="thumb_link0"/>
-                  <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="thumb_link0"/>
+                  <geom class="collision" mesh="thumb_link0"/>
                   <body name="thumb_link1" pos="0.024508 -0.00083332 -0.00845">
                     <inertial pos="-0.00106505 -0.0129271 0.00955894" quat="0.821578 0.569398 0.0261064 0.0106998" mass="0.00188076" diaginertia="3.41494e-07 2.93718e-07 7.44231e-08"/>
                     <joint name="thumb_joint1" pos="0 0 0" axis="0 0 1" range="0 1.78" actuatorfrcrange="-300 300"/>
                     <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="thumb_link1"/>
-                    <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="thumb_link1"/>
+                    <geom class="collision" mesh="thumb_link1"/>
                     <body name="thumb_link2" pos="0.010985 -0.030795 0.012414">
                       <inertial pos="-0.0106242 -0.0208034 0.0161575" quat="0.882449 0.470244 -0.00244079 0.0121843" mass="0.0205071" diaginertia="8.50825e-06 7.63476e-06 1.80325e-06"/>
                       <joint name="thumb_joint2" pos="0 0 0" axis="-1 0 0" range="0 0.87" actuatorfrcrange="-300 300"/>
                       <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="thumb_link2"/>
-                      <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="thumb_link2"/>
+                      <geom class="collision" mesh="thumb_link2"/>
                       <body name="thumb_link3" pos="-0.0010999 -0.044701 0.034112">
                         <inertial pos="-0.00937367 -0.0118165 0.00400539" quat="0.92791 0.372735 0.00539991 0.00476082" mass="0.00483281" diaginertia="6.14158e-07 4.65849e-07 1.99093e-07"/>
                         <joint name="thumb_joint3" pos="0 0 0" axis="-1 0 0" range="0 1.29" actuatorfrcrange="-300 300"/>
                         <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="thumb_link3"/>
-                        <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="thumb_link3"/>
+                        <geom class="collision" mesh="thumb_link3"/>
                         <body name="thumb_link4" pos="-0.01277 -0.030981 0.015322">
                           <inertial pos="0.00305602 -0.0105425 0.00593874" quat="0.788104 0.615532 0.00295271 -0.00184909" mass="0.00657183" diaginertia="5.94265e-07 5.28368e-07 1.64029e-07"/>
                           <joint name="thumb_joint4" pos="0 0 0" axis="-1 0 0" range="0 1.29" actuatorfrcrange="-300 300"/>
                           <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="thumb_link4"/>
-                          <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="thumb_link4"/>
+                          <geom class="collision" mesh="thumb_link4"/>
                           <geom pos="0.004 -0.0208 0.0143" quat="0.991445 0.130526 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="thumb_link5"/>
                           <geom pos="0.004 -0.0208 0.0143" quat="0.991445 0.130526 0 0" type="mesh" rgba="0.2 0.2 0.2 1" mesh="thumb_link5"/>
                         </body>
@@ -121,104 +102,104 @@
                     </body>
                   </body>
                 </body>
-                <body name="index_link0" pos="-0.025865 -0.026698 0.18421">
+                <body name="index_link0" pos="-0.025865 -0.026698 0.15421">
                   <inertial pos="0.00582427 5.50368e-07 0.0022475" quat="0.355185 0.355185 -0.611427 0.611427" mass="0.000858839" diaginertia="4.34042e-08 3.21335e-08 2.50587e-08"/>
                   <joint name="index_joint0" pos="0 0 0" axis="1 0 0" range="-0.26 0.26" actuatorfrcrange="-300 300"/>
                   <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="index_link0"/>
-                  <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="index_link0"/>
+                  <geom class="collision" mesh="index_link0"/>
                   <body name="index_link1" pos="0.011115 -0.0047959 0">
                     <inertial pos="-0.000683356 0.0048078 0.0243018" quat="0.707512 -0.00568475 -0.00587904 0.706654" mass="0.00458484" diaginertia="7.20266e-07 7.10515e-07 1.385e-07"/>
                     <joint name="index_joint1" pos="0 0 0" axis="0 1 0" range="0 1.4" actuatorfrcrange="-300 300"/>
                     <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="index_link1"/>
-                    <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="index_link1"/>
+                    <geom class="collision" mesh="index_link1"/>
                     <body name="index_link2" pos="-0.0034454 0.0010465 0.044883">
                       <inertial pos="0.00281619 0.00381383 0.0165996" quat="0.999163 2.62805e-05 0.0409006 -6.95714e-05" mass="0.00240942" diaginertia="2.39031e-07 1.8348e-07 9.72399e-08"/>
                       <joint name="index_joint2" pos="0 0 0" axis="0 1 0" range="0 1.08" actuatorfrcrange="-300 300"/>
                       <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="index_link2"/>
-                      <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="index_link2"/>
+                      <geom class="collision" mesh="index_link2"/>
                       <body name="index_link3" pos="0.0084126 -0.0012 0.03069">
                         <inertial pos="-0.00677318 0.00520866 0.00972039" quat="0.992073 7.29583e-05 -0.125662 -0.000486013" mass="0.00356381" diaginertia="2.50341e-07 2.43742e-07 1.13122e-07"/>
                         <joint name="index_joint3" pos="0 0 0" axis="0 1 0" range="0 1.15" actuatorfrcrange="-300 300"/>
                         <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="index_link3"/>
-                        <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="index_link3"/>
+                        <geom class="collision" mesh="index_link3"/>
                         <geom pos="-0.0025 0.0064 0.018" quat="0.866075 0 0.499914 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="index_link4"/>
                         <geom pos="-0.0025 0.0064 0.018" quat="0.866075 0 0.499914 0" type="mesh" rgba="0.2 0.2 0.2 1" mesh="index_link4"/>
                       </body>
                     </body>
                   </body>
                 </body>
-                <body name="middle_link0" pos="-0.030599 -0.0050984 0.1887">
+                <body name="middle_link0" pos="-0.030599 -0.0050984 0.1587">
                   <inertial pos="0.00582427 5.60656e-07 0.0022475" quat="0.355185 0.355185 -0.611427 0.611427" mass="0.000858839" diaginertia="4.34042e-08 3.21335e-08 2.50587e-08"/>
                   <joint name="middle_joint0" pos="0 0 0" axis="1 0 0" range="-0.26 0.26" actuatorfrcrange="-300 300"/>
                   <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="middle_link0"/>
-                  <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="middle_link0"/>
+                  <geom class="collision" mesh="middle_link0"/>
                   <body name="middle_link1" pos="0.011115 -0.0047959 0">
                     <inertial pos="-0.000683358 0.00480779 0.0243018" quat="0.707512 -0.00568485 -0.00587906 0.706654" mass="0.00458484" diaginertia="7.20267e-07 7.10516e-07 1.385e-07"/>
                     <joint name="middle_joint1" pos="0 0 0" axis="0 1 0" range="0 1.4" actuatorfrcrange="-300 300"/>
                     <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="middle_link1"/>
-                    <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="middle_link1"/>
+                    <geom class="collision" mesh="middle_link1"/>
                     <body name="middle_link2" pos="-0.0034454 0.0010465 0.044883">
                       <inertial pos="0.00281619 0.00381383 0.0165996" quat="0.999163 2.62805e-05 0.0409006 -6.95714e-05" mass="0.00240942" diaginertia="2.39031e-07 1.8348e-07 9.72399e-08"/>
                       <joint name="middle_joint2" pos="0 0 0" axis="0 1 0" range="0 1.08" actuatorfrcrange="-300 300"/>
                       <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="middle_link2"/>
-                      <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="middle_link2"/>
+                      <geom class="collision" mesh="middle_link2"/>
                       <body name="middle_link3" pos="0.0084126 -0.0012 0.03069">
                         <inertial pos="-0.00677318 0.00520866 0.00972039" quat="0.992073 7.29533e-05 -0.125662 -0.000486284" mass="0.00356381" diaginertia="2.50341e-07 2.43742e-07 1.13122e-07"/>
                         <joint name="middle_joint3" pos="0 0 0" axis="0 1 0" range="0 1.15" actuatorfrcrange="-300 300"/>
                         <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="middle_link3"/>
-                        <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="middle_link3"/>
+                        <geom class="collision" mesh="middle_link3"/>
                         <geom pos="-0.0025 0.0064 0.018" quat="0.866075 0 0.499914 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="middle_link4"/>
                         <geom pos="-0.0025 0.0064 0.018" quat="0.866075 0 0.499914 0" type="mesh" rgba="0.2 0.2 0.2 1" mesh="middle_link4"/>
                       </body>
                     </body>
                   </body>
                 </body>
-                <body name="ring_link0" pos="-0.028294 0.016502 0.18421">
+                <body name="ring_link0" pos="-0.028294 0.016502 0.15421">
                   <inertial pos="0.00582427 5.60656e-07 0.0022475" quat="0.355185 0.355185 -0.611427 0.611427" mass="0.000858839" diaginertia="4.34042e-08 3.21335e-08 2.50587e-08"/>
                   <joint name="ring_joint0" pos="0 0 0" axis="1 0 0" range="-0.26 0.26" actuatorfrcrange="-300 300"/>
                   <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="ring_link0"/>
-                  <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="ring_link0"/>
+                  <geom class="collision" mesh="ring_link0"/>
                   <body name="ring_link1" pos="0.011115 -0.0047959 0">
                     <inertial pos="-0.000683358 0.0048078 0.0243018" quat="0.707513 -0.00568489 -0.0058791 0.706653" mass="0.00458484" diaginertia="7.20267e-07 7.10516e-07 1.385e-07"/>
                     <joint name="ring_joint1" pos="0 0 0" axis="0 1 0" range="0 1.4" actuatorfrcrange="-300 300"/>
                     <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="ring_link1"/>
-                    <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="ring_link1"/>
+                    <geom class="collision" mesh="ring_link1"/>
                     <body name="ring_link2" pos="-0.0034454 0.0010465 0.044883">
                       <inertial pos="0.00281619 0.00381383 0.0165996" quat="0.999163 2.62805e-05 0.0409006 -6.95714e-05" mass="0.00240942" diaginertia="2.39031e-07 1.8348e-07 9.72399e-08"/>
                       <joint name="ring_joint2" pos="0 0 0" axis="0 1 0" range="0 1.08" actuatorfrcrange="-300 300"/>
                       <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="ring_link2"/>
-                      <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="ring_link2"/>
+                      <geom class="collision" mesh="ring_link2"/>
                       <body name="ring_link3" pos="0.0084126 -0.0012 0.03069">
                         <inertial pos="-0.00677317 0.00520866 0.00972037" quat="0.992073 7.24968e-05 -0.125662 -0.00048527" mass="0.00356381" diaginertia="2.50341e-07 2.43743e-07 1.13122e-07"/>
                         <joint name="ring_joint3" pos="0 0 0" axis="0 1 0" range="0 1.15" actuatorfrcrange="-300 300"/>
                         <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="ring_link3"/>
-                        <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="ring_link3"/>
+                        <geom class="collision" mesh="ring_link3"/>
                         <geom pos="-0.0025 0.0064 0.018" quat="0.866075 0 0.499914 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="ring_link4"/>
                         <geom pos="-0.0025 0.0064 0.018" quat="0.866075 0 0.499914 0" type="mesh" rgba="0.2 0.2 0.2 1" mesh="ring_link4"/>
                       </body>
                     </body>
                   </body>
                 </body>
-                <body name="little_link0" pos="-0.02467 0.038102 0.17521">
+                <body name="little_link0" pos="-0.02467 0.038102 0.14521">
                   <inertial pos="0.00582427 5.60668e-07 0.0022475" quat="0.355185 0.355185 -0.611427 0.611427" mass="0.000858839" diaginertia="4.34042e-08 3.21335e-08 2.50587e-08"/>
                   <joint name="little_joint0" pos="0 0 0" axis="1 0 0" range="-0.26 0.26" actuatorfrcrange="-300 300"/>
                   <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="little_link0"/>
-                  <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="little_link0"/>
+                  <geom class="collision" mesh="little_link0"/>
                   <body name="little_link1" pos="0.011115 -0.0047959 0">
                     <inertial pos="-0.000683358 0.0048078 0.0243018" quat="0.707513 -0.00568489 -0.0058791 0.706653" mass="0.00458484" diaginertia="7.20267e-07 7.10516e-07 1.385e-07"/>
                     <joint name="little_joint1" pos="0 0 0" axis="0 1 0" range="0 1.4" actuatorfrcrange="-300 300"/>
                     <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="little_link1"/>
-                    <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="little_link1"/>
+                    <geom class="collision" mesh="little_link1"/>
                     <body name="little_link2" pos="-0.0034454 0.0010465 0.044883">
                       <inertial pos="0.00281619 0.00381383 0.0165996" quat="0.999163 2.62805e-05 0.0409006 -6.95714e-05" mass="0.00240942" diaginertia="2.39031e-07 1.8348e-07 9.72399e-08"/>
                       <joint name="little_joint2" pos="0 0 0" axis="0 1 0" range="0 1.08" actuatorfrcrange="-300 300"/>
                       <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="little_link2"/>
-                      <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="little_link2"/>
+                      <geom class="collision" mesh="little_link2"/>
                       <body name="little_link3" pos="0.0084126 -0.0012 0.03069">
                         <inertial pos="-0.00677318 0.00520866 0.00972038" quat="0.992073 7.2655e-05 -0.125662 -0.000486455" mass="0.00356381" diaginertia="2.50341e-07 2.43743e-07 1.13122e-07"/>
                         <joint name="little_joint3" pos="0 0 0" axis="0 1 0" range="0 1.15" actuatorfrcrange="-300 300"/>
                         <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="little_link3"/>
-                        <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="little_link3"/>
+                        <geom class="collision" mesh="little_link3"/>
                         <geom pos="-0.0025 0.0064 0.018" quat="0.866075 0 0.499914 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.2 0.2 0.2 1" mesh="little_link4"/>
                         <geom pos="-0.0025 0.0064 0.018" quat="0.866075 0 0.499914 0" type="mesh" rgba="0.2 0.2 0.2 1" mesh="little_link4"/>
                       </body>
@@ -234,38 +215,38 @@
   </worldbody>
 
   <actuator>
-    <general class="aubo_linker" name="shoulder_joint" joint="shoulder_joint" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="upperArm_joint" joint="upperArm_joint" gainprm="5000" biasprm="0 -5000 -800"/>
-    <general class="aubo_linker" name="foreArm_joint" joint="foreArm_joint" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="wrist1_joint" joint="wrist1_joint" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="wrist2_joint" joint="wrist2_joint" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="wrist3_joint" joint="wrist3_joint" gainprm="4500" biasprm="0 -4500 -450"/>
+    <general class="linker" name="virtual_joint_x" joint="virtual_joint_x" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="virtual_joint_y" joint="virtual_joint_y" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="virtual_joint_z" joint="virtual_joint_z" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="virtual_joint_roll" joint="virtual_joint_roll" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="virtual_joint_pitch" joint="virtual_joint_pitch" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="virtual_joint_yaw" joint="virtual_joint_yaw" gainprm="80" biasprm="0 -50 -10"/>
 
-    <general class="aubo_linker" name="thumb_joint0" joint="thumb_joint0" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="thumb_joint1" joint="thumb_joint1" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="thumb_joint2" joint="thumb_joint2" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="thumb_joint3" joint="thumb_joint3" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="thumb_joint4" joint="thumb_joint4" gainprm="4500" biasprm="0 -4500 -450"/>
+    <general class="linker" name="thumb_joint0" joint="thumb_joint0" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="thumb_joint1" joint="thumb_joint1" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="thumb_joint2" joint="thumb_joint2" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="thumb_joint3" joint="thumb_joint3" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="thumb_joint4" joint="thumb_joint4" gainprm="80" biasprm="0 -50 -10"/>
 
-    <general class="aubo_linker" name="index_joint0" joint="index_joint0" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="index_joint1" joint="index_joint1" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="index_joint2" joint="index_joint2" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="index_joint3" joint="index_joint3" gainprm="4500" biasprm="0 -4500 -450"/>
+    <general class="linker" name="index_joint0" joint="index_joint0" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="index_joint1" joint="index_joint1" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="index_joint2" joint="index_joint2" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="index_joint3" joint="index_joint3" gainprm="80" biasprm="0 -50 -10"/>
 
-    <general class="aubo_linker" name="middle_joint0" joint="middle_joint0" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="middle_joint1" joint="middle_joint1" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="middle_joint2" joint="middle_joint2" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="middle_joint3" joint="middle_joint3" gainprm="4500" biasprm="0 -4500 -450"/>
+    <general class="linker" name="middle_joint0" joint="middle_joint0" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="middle_joint1" joint="middle_joint1" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="middle_joint2" joint="middle_joint2" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="middle_joint3" joint="middle_joint3" gainprm="80" biasprm="0 -50 -10"/>
 
-    <general class="aubo_linker" name="ring_joint0" joint="ring_joint0" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="ring_joint1" joint="ring_joint1" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="ring_joint2" joint="ring_joint2" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="ring_joint3" joint="ring_joint3" gainprm="4500" biasprm="0 -4500 -450"/>
+    <general class="linker" name="ring_joint0" joint="ring_joint0" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="ring_joint1" joint="ring_joint1" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="ring_joint2" joint="ring_joint2" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="ring_joint3" joint="ring_joint3" gainprm="80" biasprm="0 -50 -10"/>
 
-    <general class="aubo_linker" name="little_joint0" joint="little_joint0" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="little_joint1" joint="little_joint1" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="little_joint2" joint="little_joint2" gainprm="4500" biasprm="0 -4500 -450"/>
-    <general class="aubo_linker" name="little_joint3" joint="little_joint3" gainprm="4500" biasprm="0 -4500 -450"/>
+    <general class="linker" name="little_joint0" joint="little_joint0" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="little_joint1" joint="little_joint1" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="little_joint2" joint="little_joint2" gainprm="80" biasprm="0 -50 -10"/>
+    <general class="linker" name="little_joint3" joint="little_joint3" gainprm="80" biasprm="0 -50 -10"/>
   </actuator>
 
 </mujoco>

@@ -1,0 +1,88 @@
+<mujoco model="linker hand scene">
+  <!-- 设置资源路径 -->
+  <compiler angle="radian" meshdir="assets" autolimits="true" balanceinertia="true"/>
+
+  <option integrator="implicitfast" timestep="0.001" iterations="50" ls_iterations="20"/>
+  
+  <include file="linker_hand.xml"/>
+  
+  <statistic center="0.3 0 0.4" extent="0.8"/>
+  
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.1 0.1 0.1" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="120" elevation="-20"/>
+  </visual>
+
+  <default>
+    <geom solimp="0.9 0.95 0.001" solref="0.02 1"/>
+  </default>
+  
+  <asset>
+    <!-- 天空盒和地面纹理 -->
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+      markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    
+    <!-- 桌子模型 -->
+    <mesh file="table_cor.stl" name="table_mesh"/>
+    <mesh file="agv.stl" name="agv_mesh"/>
+    
+    <!-- 材质定义 -->
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+    <material name="table_material" rgba="0.8 0.7 0.6 1" specular="0.3"/>
+
+     <!-- 物体网格定义 -->
+    <mesh file="objects/ycb/potted_meat_can.stl" name="potted_meat_can_mesh"/>
+    <material name="potted_meat_can_material" rgba="1 0.2 0.2 1" specular="0.3"/>
+  </asset>
+  
+  <!-- 世界主体 -->
+  <worldbody>
+    <!-- 光照 -->
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    
+    <!-- 地面 - 调整到合适高度 -->
+    <geom name="floor" size="2 2 0.05" type="plane" material="groundplane" pos="0 0 -0.75"/>
+    
+    <!-- 预定义所有可抓取物体（初始隐藏在远处） -->
+    <!-- <body name="potted_meat_can" pos="0 0 1">
+      <freejoint/>
+      <geom type="cylinder" size="0.048 0.04" material="potted_meat_can_material" 
+            solimp="0.95 0.99 0.001" solref="0.02 1" mass="0.2"
+            contype="1" conaffinity="1" friction="1 0.1 0.002" group="3" margin="0.001"
+            rgba="1 0 0 0.5"/>
+      <geom type="mesh" mesh="potted_meat_can_mesh" material="potted_meat_can_material" 
+            contype="0" conaffinity="0" group="1" density="0"/>
+    </body> -->
+
+    <body name="potted_meat_can" pos="0 0 1">
+      <freejoint/>
+      <inertial pos="0 0 0" mass="0.2" diaginertia="0.001 0.001 0.001"/>
+      <geom type="cylinder" size="0.048 0.04" material="potted_meat_can_material" 
+            mass="0.2" friction="0.8 0.1 0.001" solimp="0.8 0.9 0.001" 
+            solref="0.01 1" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- 世界参考点 -->
+    <site name="worldref" pos="0 0 -0.75"/>
+    
+    <geom name="table_visual" mesh="table_mesh" material="table_material" class="visual" 
+      pos="-0.71 0.63 -0.65" euler="0 0 0"/>
+
+    <!-- <geom name="table_collision" type="box" size="0.515 0.5 0.01" 
+      pos="-0.195 1.13 0.15" rgba="1 0 0 0.5" 
+      friction="1 0.005 0.0001"/> -->
+    
+    <geom name="agv_visual" mesh="agv_mesh" material="table_material" class="visual" 
+          pos="-0.82 0.35 -0.62" euler="1.57 0 0"/>
+    
+    <!-- 桌子的碰撞体 - 确保与视觉模型匹配 -->
+    <!-- <geom name="table_collision" pos="-0.195 1.13 0.15" size="0.515 0.5 0.01" type="box" 
+          class="collision" material="table_material" mass="1" friction="1 1 1"/> -->
+
+    <geom name="table_collision" pos="-0.195 1.13 0.15" size="0.515 0.5 0.01" type="box" 
+      material="table_material" contype="1" conaffinity="1"
+      solimp="0.9 0.95 0.001" solref="0.02 1" friction="1.0 0.5 0.001"/>
+  </worldbody>
+</mujoco>
