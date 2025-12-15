@@ -1,16 +1,16 @@
 <mujoco model="single object">
-  <option timestep="0.005"/>
+  <!-- <option timestep="0.005"/> -->
+  <option integrator="RK4" timestep="0.002"/>
   <size memory="100M"/>
 
   <!-- <include file="linker_hand_pos.xml"/> -->
-  <!-- <include file="linker_hand_pos_nocoll.xml"/> -->
-  <include file="linker_hand.xml"/>
+  <include file="linker_hand_pos_nocoll.xml"/>
 
   <default>
-    <geom solimp="0.8 0.9 0.001" solref="0.005 0.8" friction="0.5 0.1 0.01"/>
+    <geom solimp="0.8 0.9 0.001" solref="0.02 1" friction="1 0.8 0.01"/>
     <!-- 为桌面定义默认类别 -->
     <default class="table">
-      <geom type="box" material="table_material" contype="1" conaffinity="1" friction="1 0.1 0.01"/>
+      <geom type="box" material="table_material" contype="1" conaffinity="1" friction="1 0.8 0.01"/>
     </default>
   </default>
 
@@ -47,7 +47,7 @@
     <body name="table" pos="0 0 0">
       <!-- 桌面的碰撞体 - 确保物体可以稳定放置 -->
       <geom name="table_surface" class="table" type="box" size="0.515 0.5 0.01" pos="-0.195 1.13 0.2" 
-            mass="10" density="1000"/>
+            mass="1" density="1000"/>
     </body>
 
     <!-- 修改后的物体：现在放置在桌面上 -->
@@ -56,7 +56,7 @@
       <freejoint/> <!-- 此关节赋予物体6个运动自由度 -->
       
       <!-- 惯性属性（质量信息） -->
-      <inertial pos="0.045 0.025 0.0375" mass="0.5" diaginertia="0.001 0.001 0.001"/>
+      <inertial pos="0.045 0.025 0.0375" mass="0.05" diaginertia="0.001 0.001 0.001"/>
       
       <!-- 网格几何体 -->
       <!-- <geom type="mesh" mesh="my_object_mesh" material="custom_object_material" 
@@ -70,7 +70,7 @@
         contype="0" conaffinity="0" group="2"/>
       <geom name="object_collision" type="box" size="0.045 0.025 0.0375" rgba="0.2 0.5 0.8 0.3"
         contype="1" conaffinity="1" density="500" pos="0.045 0.025 0.0375"
-        solimp="0.8 0.9 0.001" solref="0.005 0.8"/>
+        solimp="0.9 0.95 0.001" solref="0.02 1" friction="1 0.8 0.01"/>
 
     </body>
   </worldbody>

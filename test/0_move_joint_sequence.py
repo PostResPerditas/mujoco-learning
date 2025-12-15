@@ -116,7 +116,8 @@ def load_aubo_linker():
     move_joint_sequence(model_path, joint_sequence)
 
 def load_linker():
-    model_path = 'model/robot/linker_hand/scene.xml'
+    # model_path = 'model/robot/linker_hand/scene.xml'
+    model_path = 'model/robot/linker_hand/object_on_table.xml'
 
     load_dir = 'assets/trajectory/'
     joint_sequence = np.loadtxt(os.path.join(load_dir, "test.txt"))

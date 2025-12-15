@@ -158,7 +158,8 @@ def load_linker(speed_multiplier=2.0):
     Args:
         speed_multiplier: 仿真速度倍数，大于1加速，小于1减速
     """
-    model_path = 'model/robot/linker_hand/scene.xml'
+    # model_path = 'model/robot/linker_hand/scene.xml'
+    model_path = 'model/robot/linker_hand/object_on_table.xml'
     load_dir = 'assets/trajectory/'
     
     joint_sequence = np.loadtxt(os.path.join(load_dir, "test.txt"))

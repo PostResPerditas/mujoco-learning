@@ -2,20 +2,21 @@
   <compiler angle="radian" meshdir="assets" autolimits="true" balanceinertia="true"/>
 
   <option integrator="implicitfast" timestep="0.002"/>
-
+  <!-- <option integrator="RK4" timestep="0.002"/> -->
+  
   <default>
     <default class="linker">
       <material specular="0.5" shininess="0.25"/>
       <joint armature="0.1" damping="1.5" axis="0 0 1" range="-2.8973 2.8973"/>
       <general dyntype="none" biastype="affine" ctrlrange="-2.8973 2.8973" forcerange="-20 20"/>
-      <geom solimp="0.8 0.9 0.001" solref="0.005 0.8" friction="0.5 0.1 0.01"/>
+      <geom solimp="0.9 0.95 0.001" solref="0.02 1" friction="1 0.8 0.01"/>
       </default>
     <default class="visual">
       <geom group="2" type="mesh" contype="0" conaffinity="0" density="0"/>
     </default>
     <default class="collision">
       <geom group="3" type="mesh" density="2700" contype="1" conaffinity="1" margin="0.001"
-            solimp="0.8 0.9 0.001" solref="0.005 0.8"/>
+            solimp="0.9 0.95 0.001" solref="0.02 1" friction="1 0.8 0.01"/>
     </default>
   </default>
 
@@ -215,38 +216,38 @@
   </worldbody>
 
   <actuator>
-    <general class="linker" name="virtual_joint_x" joint="virtual_joint_x" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="virtual_joint_y" joint="virtual_joint_y" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="virtual_joint_z" joint="virtual_joint_z" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="virtual_joint_roll" joint="virtual_joint_roll" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="virtual_joint_pitch" joint="virtual_joint_pitch" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="virtual_joint_yaw" joint="virtual_joint_yaw" gainprm="80" biasprm="0 -50 -10"/>
+    <position name="virtual_joint_x_pos" joint="virtual_joint_x" kp="100" kv="50"/>
+    <position name="virtual_joint_y" joint="virtual_joint_y" kp="100" kv="50"/>
+    <position name="virtual_joint_z" joint="virtual_joint_z" kp="100" kv="50"/>
+    <position name="virtual_joint_roll" joint="virtual_joint_roll" kp="100" kv="50"/>
+    <position name="virtual_joint_pitch" joint="virtual_joint_pitch" kp="100" kv="50"/>
+    <position name="virtual_joint_yaw" joint="virtual_joint_yaw" kp="100" kv="50"/>
 
-    <general class="linker" name="thumb_joint0" joint="thumb_joint0" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="thumb_joint1" joint="thumb_joint1" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="thumb_joint2" joint="thumb_joint2" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="thumb_joint3" joint="thumb_joint3" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="thumb_joint4" joint="thumb_joint4" gainprm="80" biasprm="0 -50 -10"/>
+    <position name="thumb_joint0" joint="thumb_joint0" kp="100" kv="50"/>
+    <position name="thumb_joint1" joint="thumb_joint1" kp="100" kv="50"/>
+    <position name="thumb_joint2" joint="thumb_joint2" kp="100" kv="50"/>
+    <position name="thumb_joint3" joint="thumb_joint3" kp="100" kv="50"/>
+    <position name="thumb_joint4" joint="thumb_joint4" kp="100" kv="50"/>
 
-    <general class="linker" name="index_joint0" joint="index_joint0" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="index_joint1" joint="index_joint1" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="index_joint2" joint="index_joint2" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="index_joint3" joint="index_joint3" gainprm="80" biasprm="0 -50 -10"/>
+    <position name="index_joint0" joint="index_joint0" kp="100" kv="50"/>
+    <position name="index_joint1" joint="index_joint1" kp="100" kv="50"/>
+    <position name="index_joint2" joint="index_joint2" kp="100" kv="50"/>
+    <position name="index_joint3" joint="index_joint3" kp="100" kv="50"/>
 
-    <general class="linker" name="middle_joint0" joint="middle_joint0" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="middle_joint1" joint="middle_joint1" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="middle_joint2" joint="middle_joint2" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="middle_joint3" joint="middle_joint3" gainprm="80" biasprm="0 -50 -10"/>
+    <position name="middle_joint0" joint="middle_joint0" kp="100" kv="50"/>
+    <position name="middle_joint1" joint="middle_joint1" kp="100" kv="50"/>
+    <position name="middle_joint2" joint="middle_joint2" kp="100" kv="50"/>
+    <position name="middle_joint3" joint="middle_joint3" kp="100" kv="50"/>
 
-    <general class="linker" name="ring_joint0" joint="ring_joint0" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="ring_joint1" joint="ring_joint1" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="ring_joint2" joint="ring_joint2" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="ring_joint3" joint="ring_joint3" gainprm="80" biasprm="0 -50 -10"/>
+    <position name="ring_joint0" joint="ring_joint0" kp="100" kv="50"/>
+    <position name="ring_joint1" joint="ring_joint1" kp="100" kv="50"/>
+    <position name="ring_joint2" joint="ring_joint2" kp="100" kv="50"/>
+    <position name="ring_joint3" joint="ring_joint3" kp="100" kv="50"/>
 
-    <general class="linker" name="little_joint0" joint="little_joint0" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="little_joint1" joint="little_joint1" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="little_joint2" joint="little_joint2" gainprm="80" biasprm="0 -50 -10"/>
-    <general class="linker" name="little_joint3" joint="little_joint3" gainprm="80" biasprm="0 -50 -10"/>
+    <position name="little_joint0" joint="little_joint0" kp="100" kv="50"/>
+    <position name="little_joint1" joint="little_joint1" kp="100" kv="50"/>
+    <position name="little_joint2" joint="little_joint2" kp="100" kv="50"/>
+    <position name="little_joint3" joint="little_joint3" kp="100" kv="50"/>
   </actuator>
 
 </mujoco>
