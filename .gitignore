@@ -9,3 +9,4 @@ kdl_parser
 pinocchio_install
 */.git
 urdf2mjcf
+test/
